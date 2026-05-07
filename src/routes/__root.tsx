@@ -72,14 +72,18 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
+      { title: "app" },
+      { name: "description", content: "anbud" },
       { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { property: "og:title", content: "app" },
+      { property: "og:description", content: "anbud" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "twitter:site", content: "@Lovable" },
+      { name: "twitter:title", content: "app" },
+      { name: "twitter:description", content: "anbud" },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/f0d81eec-3735-4892-8daa-12521b2a0bc6/id-preview-d16f2da7--9f2a468b-0337-4a21-86a1-92560f00c093.lovable.app-1778157480508.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/f0d81eec-3735-4892-8daa-12521b2a0bc6/id-preview-d16f2da7--9f2a468b-0337-4a21-86a1-92560f00c093.lovable.app-1778157480508.png" },
     ],
     links: [
       {
