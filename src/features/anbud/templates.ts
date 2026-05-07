@@ -1,0 +1,237 @@
+import type { ProjectTemplate } from "./types";
+
+export const TEMPLATES: ProjectTemplate[] = [
+  {
+    id: "proptech-heat",
+    name: "Proptech BOX Heat",
+    icon: "📦",
+    category: "varme",
+    description: "Grundinstallation av styrcentral. Prisförslag med energitext.",
+    defaultScope:
+      "Installation av Proptech BOX Heat styrcentral inkl. driftsättning, inkoppling mot befintlig värmecentral och funktionsprov.",
+    defaultItems: [
+      { description: "Proptech BOX Heat styrcentral", quantity: 1, unit: "st", unitPrice: 28500 },
+      { description: "Installation & driftsättning", quantity: 8, unit: "tim", unitPrice: 895 },
+      { description: "Material och kablage", quantity: 1, unit: "post", unitPrice: 4200 },
+    ],
+  },
+  {
+    id: "proptech-smart",
+    name: "Proptech BOX Heat + Smart",
+    icon: "📡",
+    category: "varme",
+    description: "Med trådlösa rumsgivare och smart energikontroll.",
+    defaultScope:
+      "Installation av Proptech BOX Heat + Smart med trådlösa rumsgivare för adaptiv styrning och energiövervakning.",
+    defaultItems: [
+      { description: "Proptech BOX Heat + Smart paket", quantity: 1, unit: "st", unitPrice: 42500 },
+      { description: "Trådlösa rumsgivare", quantity: 12, unit: "st", unitPrice: 1250 },
+      { description: "Installation & konfiguration", quantity: 14, unit: "tim", unitPrice: 895 },
+    ],
+  },
+  {
+    id: "franluft-atervinning",
+    name: "Frånluftsåtervinning",
+    icon: "🌀",
+    category: "ventilation",
+    description: "FX-aggregat, VS, el och styr.",
+    defaultScope:
+      "Leverans och installation av FX-aggregat med koppling till värme- och elsystem inkl. styr och driftsättning.",
+    defaultItems: [
+      { description: "FX-aggregat komplett", quantity: 1, unit: "st", unitPrice: 185000 },
+      { description: "VS-arbete", quantity: 40, unit: "tim", unitPrice: 895 },
+      { description: "El & styr", quantity: 24, unit: "tim", unitPrice: 950 },
+    ],
+  },
+  {
+    id: "franluft-vp",
+    name: "Frånluftsvärmepump",
+    icon: "♨️",
+    category: "varme",
+    description: "Byte eller installation av FVP.",
+    defaultScope:
+      "Demontering av befintlig enhet samt installation av ny frånluftsvärmepump inkl. injustering och driftsättning.",
+    defaultItems: [
+      { description: "Frånluftsvärmepump", quantity: 1, unit: "st", unitPrice: 95000 },
+      { description: "Demontering & installation", quantity: 24, unit: "tim", unitPrice: 895 },
+    ],
+  },
+  {
+    id: "bergvarme",
+    name: "Bergvärme",
+    icon: "🏔️",
+    category: "varme",
+    description: "Borrhål, värmepump och styr.",
+    defaultScope: "Komplett bergvärmeinstallation med borrhål, värmepump, kollektor och styrsystem.",
+    defaultItems: [
+      { description: "Borrning bergvärmehål", quantity: 180, unit: "m", unitPrice: 425 },
+      { description: "Värmepump bergvärme", quantity: 1, unit: "st", unitPrice: 165000 },
+      { description: "Installation & inkoppling", quantity: 60, unit: "tim", unitPrice: 895 },
+    ],
+  },
+  {
+    id: "ftx",
+    name: "FTX-ventilation",
+    icon: "💨",
+    category: "ventilation",
+    description: "Från- och tilluft med värmeåtervinning.",
+    defaultScope: "Installation av FTX-aggregat med kanaldragning, don och driftsättning.",
+    defaultItems: [
+      { description: "FTX-aggregat", quantity: 1, unit: "st", unitPrice: 78000 },
+      { description: "Kanalsystem & don", quantity: 1, unit: "post", unitPrice: 42000 },
+      { description: "Installation", quantity: 48, unit: "tim", unitPrice: 895 },
+    ],
+  },
+  {
+    id: "injustering",
+    name: "Injustering värmesystem",
+    icon: "🔧",
+    category: "varme",
+    description: "Injustering, ventiler och systemkontroll.",
+    defaultScope: "Komplett injustering av värmesystemet med protokoll och systemkontroll.",
+    defaultItems: [
+      { description: "Injusteringsarbete", quantity: 32, unit: "tim", unitPrice: 895 },
+      { description: "Ventiler & material", quantity: 1, unit: "post", unitPrice: 8500 },
+    ],
+  },
+  {
+    id: "vvc-pump",
+    name: "Budgetpris VVC-pump",
+    icon: "🚰",
+    category: "budget",
+    description: "Byte av VVC-cirkulationspump med VS/EL.",
+    defaultScope: "Byte av VVC-cirkulationspump inkl. VS- och elarbete samt driftsättning.",
+    defaultItems: [
+      { description: "VVC-cirkulationspump", quantity: 1, unit: "st", unitPrice: 12500 },
+      { description: "VS & el", quantity: 6, unit: "tim", unitPrice: 895 },
+    ],
+  },
+  {
+    id: "vs-pump",
+    name: "Budgetpris VS-pump",
+    icon: "♨️",
+    category: "budget",
+    description: "Byte av cirkulationspump i värmesystem.",
+    defaultScope: "Byte av cirkulationspump i värmesystem inkl. material och driftsättning.",
+    defaultItems: [
+      { description: "Cirkulationspump VS", quantity: 1, unit: "st", unitPrice: 9800 },
+      { description: "Installation", quantity: 5, unit: "tim", unitPrice: 895 },
+    ],
+  },
+  {
+    id: "magnetit",
+    name: "Budgetpris Magnetitfilter",
+    icon: "🧲",
+    category: "budget",
+    description: "Installation av magnetit-/smutsfilter i värmesystem.",
+    defaultScope: "Leverans och installation av magnetitfilter med avstängningsventiler.",
+    defaultItems: [
+      { description: "Magnetitfilter", quantity: 1, unit: "st", unitPrice: 6500 },
+      { description: "Installation", quantity: 4, unit: "tim", unitPrice: 895 },
+    ],
+  },
+  {
+    id: "tryckhallning",
+    name: "Tryckhållning & avgasning",
+    icon: "🫧",
+    category: "varme",
+    description: "Helautomatisk tryckhållning och undertrycksavgasning.",
+    defaultScope: "Installation av komplett tryckhållnings- och avgasningssystem.",
+    defaultItems: [
+      { description: "Tryckhållningsenhet", quantity: 1, unit: "st", unitPrice: 68000 },
+      { description: "Avgasningsenhet", quantity: 1, unit: "st", unitPrice: 42000 },
+      { description: "Installation", quantity: 16, unit: "tim", unitPrice: 895 },
+    ],
+  },
+  {
+    id: "stamventil",
+    name: "Byte stamventil",
+    icon: "⚙️",
+    category: "budget",
+    description: "Byte av stam-/injusteringsventil i VS-system.",
+    defaultScope: "Byte av stamventil inkl. tappning, fyllning och avluftning.",
+    defaultItems: [
+      { description: "Stamventil", quantity: 1, unit: "st", unitPrice: 4200 },
+      { description: "Installation", quantity: 4, unit: "tim", unitPrice: 895 },
+    ],
+  },
+  {
+    id: "radiator",
+    name: "Radiatorinjustering",
+    icon: "🌡️",
+    category: "varme",
+    description: "Radiatorer, stamventiler och installationsberäkning.",
+    defaultScope: "Injustering av radiatorer enligt beräkning med protokoll.",
+    defaultItems: [
+      { description: "Injustering per radiator", quantity: 50, unit: "st", unitPrice: 285 },
+      { description: "Beräkning & protokoll", quantity: 8, unit: "tim", unitPrice: 950 },
+    ],
+  },
+  {
+    id: "ovk",
+    name: "Energideklaration + OVK",
+    icon: "📋",
+    category: "energi",
+    description: "Kontrakt/uppdrag med energideklaration, OVK och filterbyte.",
+    defaultScope: "Energideklaration enligt Boverket samt OVK-besiktning och filterbyte.",
+    defaultItems: [
+      { description: "Energideklaration", quantity: 1, unit: "st", unitPrice: 12500 },
+      { description: "OVK-besiktning", quantity: 1, unit: "st", unitPrice: 9800 },
+      { description: "Filterbyte", quantity: 1, unit: "post", unitPrice: 4500 },
+    ],
+  },
+  {
+    id: "fx-hybrid",
+    name: "Energientreprenad FX-hybrid",
+    icon: "🏢",
+    category: "energi",
+    description: "Större anbud med frånluftsåtervinning och hybridfjärrvärmecentral.",
+    defaultScope: "Komplett energientreprenad med FX-återvinning och hybridfjärrvärmecentral.",
+    defaultItems: [
+      { description: "FX-aggregat & installation", quantity: 1, unit: "post", unitPrice: 425000 },
+      { description: "Hybridfjärrvärmecentral", quantity: 1, unit: "st", unitPrice: 285000 },
+      { description: "Projektering & styr", quantity: 120, unit: "tim", unitPrice: 1150 },
+    ],
+  },
+  {
+    id: "energianalys",
+    name: "Energianalys FX",
+    icon: "📈",
+    category: "energi",
+    description: "Förstudie/energibehovsanalys inför frånluftsåtervinning.",
+    defaultScope: "Förstudie och energibehovsanalys med rekommendationer.",
+    defaultItems: [
+      { description: "Energianalys", quantity: 40, unit: "tim", unitPrice: 1150 },
+      { description: "Rapport & presentation", quantity: 8, unit: "tim", unitPrice: 1150 },
+    ],
+  },
+  {
+    id: "thinktank",
+    name: "Think Tank / koncept",
+    icon: "🧠",
+    category: "ovrigt",
+    description: "För tidigt skede: idé, potential och riktningsförslag.",
+    defaultScope: "Workshop och konceptförslag i tidigt skede.",
+    defaultItems: [
+      { description: "Workshop", quantity: 8, unit: "tim", unitPrice: 1450 },
+      { description: "Konceptdokument", quantity: 16, unit: "tim", unitPrice: 1150 },
+    ],
+  },
+  {
+    id: "tom",
+    name: "Tom mall",
+    icon: "📝",
+    category: "ovrigt",
+    description: "Börja från grunden.",
+    defaultScope: "",
+    defaultItems: [],
+  },
+];
+
+export const CATEGORIES: { id: ProjectTemplate["category"]; label: string }[] = [
+  { id: "varme", label: "Värme" },
+  { id: "ventilation", label: "Ventilation" },
+  { id: "budget", label: "Budgetposter" },
+  { id: "energi", label: "Energi & Analys" },
+  { id: "ovrigt", label: "Övrigt" },
+];
