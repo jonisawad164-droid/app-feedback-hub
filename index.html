@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bravida App Feedback Hub</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --brv-blue: #0063A3;
+      --brv-darkblue: #003F6B;
+      --brv-lightblue: #CEE8EE;
+      --brv-pale: #E8F4F7;
+      --brv-green: #7DD4B0;
+      --brv-text: #22313F;
+      --muted: #6B7884;
+      --bg: #F4F8FB;
+      --surface: #FFFFFF;
+      --border: #DCE7EF;
+      --warning: #E8A82E;
+      --danger: #E84C4C;
+      --success: #2E9968;
+      --shadow: 0 20px 50px rgba(0, 63, 107, 0.10);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      color: var(--brv-text);
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at 10% 0%, rgba(125, 212, 176, 0.18), transparent 30rem),
+        radial-gradient(circle at 90% 5%, rgba(0, 99, 163, 0.12), transparent 32rem),
+        linear-gradient(180deg, #F8FBFD 0%, #EEF5F8 100%);
+    }
+
+    header {
+      height: 76px;
+      background: rgba(255,255,255,0.92);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 clamp(1rem, 3vw, 3rem);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(16px);
+    }
+
+    .brand { display: flex; align-items: center; gap: 0.7rem; }
+    .star { width: 34px; height: 34px; flex: 0 0 auto; }
+    .brand-name { color: var(--brv-blue); font-weight: 800; font-size: 1.28rem; letter-spacing: -0.02em; }
+    .brand-sub { border-left: 1px solid var(--border); padding-left: 0.9rem; color: var(--muted); font-weight: 600; font-size: 0.92rem; }
+
+    .top-actions { margin-left: auto; display: flex; gap: 0.75rem; align-items: center; }
+
+    .btn {
+      border: none;
+      border-radius: 12px;
+      padding: 0.78rem 1.05rem;
+      font: inherit;
+      font-weight: 800;
+      cursor: pointer;
+      transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.45rem;
+      min-height: 44px;
+    }
+    .btn:hover { transform: translateY(-1px); }
+    .btn-primary { background: var(--brv-blue); color: white; box-shadow: 0 12px 24px rgba(0, 99, 163, 0.22); }
+    .btn-primary:hover { background: var(--brv-darkblue); }
+    .btn-ghost { background: white; color: var(--brv-blue); border: 1px solid var(--border); }
+    .btn-danger { background: #FFF1F1; color: var(--danger); border: 1px solid #FFD3D3; }
+
+    main {
+      width: min(92vw, 1540px);
+      margin: 0 auto;
+      padding: clamp(1.3rem, 2.5vw, 2.7rem) 0 4rem;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, var(--brv-blue) 0%, var(--brv-darkblue) 100%);
+      color: white;
+      border-radius: 28px;
+      padding: clamp(2rem, 3vw, 3.2rem);
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      margin-bottom: 1.4rem;
+    }
+    .hero::after {
+      content: "";
+      position: absolute;
+      right: -80px;
+      top: -110px;
+      width: 330px;
+      height: 330px;
+      border-radius: 999px;
+      background: rgba(125, 212, 176, 0.25);
+    }
+    .hero-content { position: relative; z-index: 2; max-width: 980px; }
+    .eyebrow { text-transform: uppercase; letter-spacing: 0.12em; font-size: 0.78rem; font-weight: 800; color: rgba(255,255,255,0.72); margin-bottom: 0.8rem; }
+    h1 { font-size: clamp(2rem, 3.2vw, 3.3rem); line-height: 1.02; letter-spacing: -0.05em; margin-bottom: 0.9rem; }
+    .hero p { color: rgba(255,255,255,0.86); font-size: 1.08rem; line-height: 1.65; max-width: 820px; }
+
+    .kpis { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1rem; margin: 1.4rem 0; }
+    .kpi {
+      background: rgba(255,255,255,0.92);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      padding: 1.2rem;
+      box-shadow: 0 14px 34px rgba(0,63,107,0.07);
+    }
+    .kpi-label { color: var(--muted); font-size: 0.76rem; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 800; margin-bottom: 0.5rem; }
+    .kpi-value { font-size: 2rem; font-weight: 900; color: var(--brv-blue); letter-spacing: -0.05em; }
+    .kpi small { color: var(--muted); font-weight: 700; }
+
+    .layout { display: grid; grid-template-columns: 0.9fr 1.25fr; gap: 1.25rem; align-items: start; }
+    .card {
+      background: rgba(255,255,255,0.94);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: clamp(1.25rem, 1.7vw, 1.8rem);
+      box-shadow: 0 16px 38px rgba(0,63,107,0.07);
+    }
+    .card-title { color: var(--brv-blue); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.09em; font-weight: 900; margin-bottom: 1rem; }
+
+    .field { display: flex; flex-direction: column; gap: 0.45rem; margin-bottom: 1rem; }
+    label { color: var(--muted); font-size: 0.86rem; font-weight: 800; }
+    input, select, textarea {
+      width: 100%;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: white;
+      color: var(--brv-text);
+      padding: 0.82rem 0.95rem;
+      font: inherit;
+      outline: none;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    }
+    textarea { min-height: 132px; resize: vertical; }
+    input:focus, select:focus, textarea:focus { border-color: var(--brv-blue); box-shadow: 0 0 0 4px rgba(0,99,163,0.10); }
+
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.9rem; }
+
+    .toolbar { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center; justify-content: space-between; margin-bottom: 1rem; }
+    .filters { display: flex; flex-wrap: wrap; gap: 0.65rem; }
+    .chip {
+      background: white;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      border-radius: 999px;
+      padding: 0.55rem 0.9rem;
+      font-weight: 800;
+      cursor: pointer;
+    }
+    .chip.active { background: var(--brv-blue); color: white; border-color: var(--brv-blue); }
+
+    .feedback-list { display: grid; gap: 0.85rem; max-height: 720px; overflow: auto; padding-right: 0.3rem; }
+    .item {
+      border: 1px solid var(--border);
+      background: white;
+      border-radius: 18px;
+      padding: 1rem;
+      display: grid;
+      gap: 0.7rem;
+    }
+    .item-head { display: flex; justify-content: space-between; gap: 1rem; align-items: start; }
+    .item-title { font-weight: 900; color: var(--brv-text); font-size: 1.02rem; }
+    .meta { color: var(--muted); font-size: 0.82rem; font-weight: 700; }
+    .item-text { color: #465666; line-height: 1.55; }
+    .badges { display: flex; flex-wrap: wrap; gap: 0.45rem; }
+    .badge { border-radius: 999px; padding: 0.32rem 0.65rem; font-size: 0.75rem; font-weight: 900; }
+    .prio-high { background: #FFF1F1; color: var(--danger); }
+    .prio-medium { background: #FFF8E8; color: #9A6500; }
+    .prio-low { background: var(--brv-pale); color: var(--brv-blue); }
+    .status-new { background: #EEF6FF; color: var(--brv-blue); }
+    .status-progress { background: #FFF8E8; color: #9A6500; }
+    .status-done { background: #ECFAF4; color: var(--success); }
+
+    .item-actions { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .mini-btn {
+      border: 1px solid var(--border);
+      background: white;
+      border-radius: 10px;
+      padding: 0.45rem 0.7rem;
+      font: inherit;
+      font-size: 0.82rem;
+      font-weight: 900;
+      color: var(--brv-blue);
+      cursor: pointer;
+    }
+
+    .empty {
+      border: 1px dashed #BFD0DC;
+      border-radius: 18px;
+      padding: 2rem;
+      text-align: center;
+      color: var(--muted);
+      background: rgba(255,255,255,0.65);
+      font-weight: 700;
+    }
+
+    .note {
+      background: var(--brv-pale);
+      border-left: 4px solid var(--brv-blue);
+      border-radius: 14px;
+      padding: 1rem;
+      color: var(--brv-darkblue);
+      font-weight: 700;
+      line-height: 1.5;
+      margin-top: 1rem;
+    }
+
+    @media (max-width: 1050px) {
+      main { width: 94vw; }
+      .layout { grid-template-columns: 1fr; }
+      .kpis { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 680px) {
+      header { height: auto; min-height: 72px; flex-wrap: wrap; gap: 0.75rem; padding: 0.9rem 1rem; }
+      .brand-sub { display: none; }
+      .top-actions { width: 100%; margin-left: 0; }
+      .top-actions .btn { flex: 1; }
+      .kpis { grid-template-columns: 1fr; }
+      .form-grid { grid-template-columns: 1fr; }
+      h1 { font-size: 2rem; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <svg class="star" viewBox="0 0 100 100" aria-hidden="true"><path fill="#7DD4B0" d="M50 0 C50 28 28 50 0 50 C28 50 50 72 50 100 C50 72 72 50 100 50 C72 50 50 28 50 0 Z"/></svg>
+      <div class="brand-name">bravida</div>
+      <div class="brand-sub">App Feedback Hub</div>
+    </div>
+    <div class="top-actions">
+      <button class="btn btn-ghost" onclick="exportFeedback()">Exportera JSON</button>
+      <button class="btn btn-primary" onclick="document.getElementById('title').focus()">Ny feedback</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-content">
+        <div class="eyebrow">Intern förbättringslogg</div>
+        <h1>Samla feedback, buggar och förbättringsidéer på ett ställe.</h1>
+        <p>En enkel hubb för att dokumentera vad som behöver förbättras i Bravida-appar, prototyper och digitala verktyg. Datan sparas lokalt i webbläsaren och kan exporteras som JSON.</p>
+      </div>
+    </section>
+
+    <section class="kpis">
+      <div class="kpi"><div class="kpi-label">Totalt</div><div class="kpi-value" id="kpi-total">0</div><small>registrerade ärenden</small></div>
+      <div class="kpi"><div class="kpi-label">Hög prio</div><div class="kpi-value" id="kpi-high">0</div><small>bör hanteras först</small></div>
+      <div class="kpi"><div class="kpi-label">Pågående</div><div class="kpi-value" id="kpi-progress">0</div><small>under arbete</small></div>
+      <div class="kpi"><div class="kpi-label">Klart</div><div class="kpi-value" id="kpi-done">0</div><small>avslutade punkter</small></div>
+    </section>
+
+    <section class="layout">
+      <div class="card">
+        <div class="card-title">Lägg till feedback</div>
+        <div class="field"><label for="title">Rubrik</label><input id="title" placeholder="Ex. Formuläret är för smalt på datorskärm"></div>
+        <div class="form-grid">
+          <div class="field"><label for="app">App / verktyg</label><input id="app" placeholder="Ex. Proptech BOX"></div>
+          <div class="field"><label for="person">Rapporterad av</label><input id="person" placeholder="Ex. Jonis / Robert / tekniker"></div>
+        </div>
+        <div class="form-grid">
+          <div class="field"><label for="category">Kategori</label><select id="category"><option>Design/UI</option><option>Funktion</option><option>Beräkning</option><option>Text/Innehåll</option><option>Prestanda</option><option>Övrigt</option></select></div>
+          <div class="field"><label for="priority">Prioritet</label><select id="priority"><option value="high">Hög</option><option value="medium" selected>Medium</option><option value="low">Låg</option></select></div>
+        </div>
+        <div class="field"><label for="description">Beskrivning</label><textarea id="description" placeholder="Skriv vad som ska ändras, varför det är viktigt och gärna exempel på önskat läge."></textarea></div>
+        <button class="btn btn-primary" style="width:100%" onclick="addFeedback()">Spara feedback</button>
+        <div class="note">Tips: använd denna som en enkel produktlogg efter möten, tester med tekniker eller feedback från chefer.</div>
+      </div>
+
+      <div class="card">
+        <div class="toolbar">
+          <div class="card-title" style="margin:0">Feedbacklista</div>
+          <div class="filters">
+            <button class="chip active" data-filter="all" onclick="setFilter('all')">Alla</button>
+            <button class="chip" data-filter="high" onclick="setFilter('high')">Hög prio</button>
+            <button class="chip" data-filter="progress" onclick="setFilter('progress')">Pågående</button>
+            <button class="chip" data-filter="done" onclick="setFilter('done')">Klart</button>
+          </div>
+        </div>
+        <div class="feedback-list" id="feedback-list"></div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const STORAGE_KEY = 'bravida-feedback-hub-v1';
+    let currentFilter = 'all';
+
+    const seed = [
+      {
+        id: crypto.randomUUID(),
+        title: 'Gör appen bredare på datorskärm',
+        app: 'Proptech BOX',
+        person: 'Jonis',
+        category: 'Design/UI',
+        priority: 'high',
+        status: 'progress',
+        description: 'Arbetsytan behöver kännas mer som ett desktop-dashboard och inte som mobil/tablet-layout.',
+        createdAt: new Date().toISOString()
+      },
+      {
+        id: crypto.randomUUID(),
+        title: 'Tydligare export för beslutsunderlag',
+        app: 'Anbud / kalkylverktyg',
+        person: 'Team',
+        category: 'Funktion',
+        priority: 'medium',
+        status: 'new',
+        description: 'Exporten bör ge tydlig sammanfattning som går att använda i offert eller intern genomgång.',
+        createdAt: new Date().toISOString()
+      }
+    ];
+
+    function getFeedback() {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(seed));
+        return seed;
+      }
+      try { return JSON.parse(raw); } catch { return []; }
+    }
+
+    function saveFeedback(items) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
+      render();
+    }
+
+    function addFeedback() {
+      const title = document.getElementById('title').value.trim();
+      const app = document.getElementById('app').value.trim();
+      const person = document.getElementById('person').value.trim();
+      const category = document.getElementById('category').value;
+      const priority = document.getElementById('priority').value;
+      const description = document.getElementById('description').value.trim();
+
+      if (!title || !description) {
+        alert('Fyll i minst rubrik och beskrivning.');
+        return;
+      }
+
+      const items = getFeedback();
+      items.unshift({ id: crypto.randomUUID(), title, app: app || 'Ej angivet', person: person || 'Ej angivet', category, priority, status: 'new', description, createdAt: new Date().toISOString() });
+      saveFeedback(items);
+
+      ['title','app','person','description'].forEach(id => document.getElementById(id).value = '');
+      document.getElementById('priority').value = 'medium';
+    }
+
+    function setFilter(filter) {
+      currentFilter = filter;
+      document.querySelectorAll('.chip').forEach(btn => btn.classList.toggle('active', btn.dataset.filter === filter));
+      render();
+    }
+
+    function setStatus(id, status) {
+      const items = getFeedback().map(item => item.id === id ? { ...item, status } : item);
+      saveFeedback(items);
+    }
+
+    function removeItem(id) {
+      if (!confirm('Ta bort denna feedback?')) return;
+      saveFeedback(getFeedback().filter(item => item.id !== id));
+    }
+
+    function exportFeedback() {
+      const data = JSON.stringify(getFeedback(), null, 2);
+      const blob = new Blob([data], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'bravida-feedback-hub.json';
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    function priorityLabel(p) { return p === 'high' ? 'Hög prio' : p === 'medium' ? 'Medium prio' : 'Låg prio'; }
+    function priorityClass(p) { return p === 'high' ? 'prio-high' : p === 'medium' ? 'prio-medium' : 'prio-low'; }
+    function statusLabel(s) { return s === 'done' ? 'Klart' : s === 'progress' ? 'Pågående' : 'Ny'; }
+    function statusClass(s) { return s === 'done' ? 'status-done' : s === 'progress' ? 'status-progress' : 'status-new'; }
+
+    function render() {
+      const items = getFeedback();
+      document.getElementById('kpi-total').textContent = items.length;
+      document.getElementById('kpi-high').textContent = items.filter(i => i.priority === 'high').length;
+      document.getElementById('kpi-progress').textContent = items.filter(i => i.status === 'progress').length;
+      document.getElementById('kpi-done').textContent = items.filter(i => i.status === 'done').length;
+
+      const filtered = items.filter(item => currentFilter === 'all' || item.priority === currentFilter || item.status === currentFilter);
+      const list = document.getElementById('feedback-list');
+
+      if (!filtered.length) {
+        list.innerHTML = '<div class="empty">Ingen feedback matchar filtret ännu.</div>';
+        return;
+      }
+
+      list.innerHTML = filtered.map(item => `
+        <article class="item">
+          <div class="item-head">
+            <div>
+              <div class="item-title">${escapeHtml(item.title)}</div>
+              <div class="meta">${escapeHtml(item.app)} · ${escapeHtml(item.person)} · ${new Date(item.createdAt).toLocaleDateString('sv-SE')}</div>
+            </div>
+            <div class="badges">
+              <span class="badge ${priorityClass(item.priority)}">${priorityLabel(item.priority)}</span>
+              <span class="badge ${statusClass(item.status)}">${statusLabel(item.status)}</span>
+            </div>
+          </div>
+          <div class="badges"><span class="badge prio-low">${escapeHtml(item.category)}</span></div>
+          <p class="item-text">${escapeHtml(item.description)}</p>
+          <div class="item-actions">
+            <button class="mini-btn" onclick="setStatus('${item.id}', 'new')">Ny</button>
+            <button class="mini-btn" onclick="setStatus('${item.id}', 'progress')">Pågående</button>
+            <button class="mini-btn" onclick="setStatus('${item.id}', 'done')">Klart</button>
+            <button class="mini-btn" onclick="removeItem('${item.id}')">Ta bort</button>
+          </div>
+        </article>
+      `).join('');
+    }
+
+    function escapeHtml(str) {
+      return String(str).replace(/[&<>'"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));
+    }
+
+    render();
+  </script>
+</body>
+</html>
