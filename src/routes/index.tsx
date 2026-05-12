@@ -1,6 +1,6 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
-import { FileText, Sparkles, Plus } from "lucide-react";
+import { FileText, Sparkles, Plus, Package } from "lucide-react";
 import { Toaster, toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -57,6 +57,13 @@ function Index() {
               <Sparkles className="h-3 w-3 inline mr-1" />
               {store.company.region}
             </span>
+            <Link
+              to="/proptech"
+              className="text-xs px-2.5 py-1 rounded-full bg-primary text-primary-foreground font-medium inline-flex items-center gap-1 hover:opacity-90"
+            >
+              <Package className="h-3 w-3" />
+              Proptech BOX motor
+            </Link>
           </div>
         </div>
       </header>
